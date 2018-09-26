@@ -1,5 +1,5 @@
 const assert = require('assert');
-const { scoreReview } = require('../index');
+const { scoreReview, rankUserReviews } = require('../index');
 
 const DEFAULT_REVIEW = {
   likeCount: 0,
@@ -23,4 +23,13 @@ describe("scoreReview", () => {
     assert(scoreReview(moreLikedReview) > scoreReview(lessLikedReview));
   });
 
+});
+
+describe("rankUserReviews", () => {
+  it("should rank more likes higher", () => {
+    const moreLikedReview = createReview({likeCount: 2});
+    const lessLikedReview = createReview({ likeCount: 1 });
+    const ranked = rankUserReviews([lessLikedReview, moreLikedReview]);
+    assert.deepStrictEqual(ranked, [moreLikedReview, lessLikedReview]);
+  });
 });
