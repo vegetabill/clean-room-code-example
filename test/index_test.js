@@ -22,6 +22,12 @@ describe("scoreReview", () => {
     const lessLikedReview = createReview({likeCount: 1});
     assert(scoreReview(moreLikedReview) > scoreReview(lessLikedReview));
   });
+  
+  it("should be lower when review is older", () => {
+    const newerReview = createReview({createdAt: '2018-09-26'});
+    const olderReview = createReview({ createdAt: '2018-09-01' });
+    assert(scoreReview(newerReview, { useRecency: true }) > scoreReview(olderReview, { useRecency: true }));
+  })
 
 });
 
